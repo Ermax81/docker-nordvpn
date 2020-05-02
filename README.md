@@ -27,7 +27,17 @@ Pour trouver l'adresse IP du réseau (NETWORK):
 
 
 Pour tester l'adresse IP fournie par NordVPN:
+- Dans le container vpn
 
 	docker exec -ti vpn bash
 
 	root@vpn:/# curl ipinfo.io/ip
+
+- Dans le container test
+
+	docker exec -ti test bash
+
+	root@test:/# curl ipinfo.io/ip
+        #ou
+        root@test:/# /tmp/getipaddr.sh
+
