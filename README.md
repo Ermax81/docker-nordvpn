@@ -43,3 +43,9 @@ Pour tester l'adresse IP fournie par NordVPN:
         #ou
         root@test:/# /tmp/getipaddr.sh
 ```
+
+Il est possible de tester dans un nouveau container:
+
+	docker run -it --net=container:vpn -d arm32v7/ubuntu
+
+
