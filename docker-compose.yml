@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+
+  vpn:
+    container_name: vpn
+    image: bubuntux/nordvpn:armv7hf-latest
+    hostname: vpn
+    network_mode: bridge
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE # Required for TECHNOLOGY=NordLynx
+    devices:
+      - /dev/net/tun
+    env_file:
+      - ./nordvpn.env
+    dns:
+      #DNS NordVPN
+      - 103.86.96.100
+      - 103.86.99.100
+    ports:
+      - "80:80"
+    restart: always
+
+  test:
+    container_name: test
+    cap_add:
+      - NET_ADMIN
+    build:
+      context: .
+      dockerfile: ./Dockerfile_rpi_ubuntu
+    image: arm32v7_ubuntu:latest
+    network_mode: service:vpn
+    depends_on:
+      - vpn
+    volumes:
+      - "./getipaddr.sh:/tmp/getipaddr.sh"
+    entrypoint: ['bash']
+    tty: true
+ 
