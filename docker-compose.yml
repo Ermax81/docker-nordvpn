@@ -4,7 +4,8 @@ services:
 
   vpn:
     container_name: vpn
-    image: bubuntux/nordvpn:armv7hf-latest
+#    image: bubuntux/nordvpn:latest
+    image: azinchen/nordvpn:latest
     hostname: vpn
     network_mode: bridge
     cap_add:
@@ -28,8 +29,8 @@ services:
       - NET_ADMIN
     build:
       context: .
-      dockerfile: ./Dockerfile_rpi_ubuntu
-    image: arm32v7_ubuntu:latest
+      dockerfile: ./Dockerfile_alpine
+    image: alpine_curl_bash:latest
     network_mode: service:vpn
     depends_on:
       - vpn
